@@ -1,6 +1,9 @@
 import jwt from "jsonwebtoken";
 import { v2 as cloudinary } from "cloudinary";
 import connectCloudinary from "./cloudinary.js";
+import {} from "dotenv/config";
+
+const folder = process.env.FOLDER_NAME;
 
 export const generateToken = (userId, res) => {
 	const token = jwt.sign({ userId }, process.env.JWT_SECRET, {
@@ -17,7 +20,7 @@ export const generateToken = (userId, res) => {
 	return token;
 };
 
-export const uploadFileOnCloudinary = async (file, folder, height, quality) => {
+export const uploadFileOnCloudinary = async (file, height, quality) => {
 	connectCloudinary();
 	try {
 		const options = {

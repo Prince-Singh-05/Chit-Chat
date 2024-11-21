@@ -133,29 +133,29 @@ export const logout = (req, res) => {
 // check if there is some issue
 export const updateProfile = async (req, res) => {
 	try {
-    console.log("Request's files - ", req.file);
+		console.log("Request's body - ", req.body);
 
-		// const { profilePic } = req.files;
-		// const userId = req.user._id;
+		const { profilePic } = req.body;
+		const userId = req.user._id;
 
-		// if (!profilePic) {
-		// 	return res.status(400).json({
-		// 		success: false,
-		// 		message: "Profile pic is required",
-		// 	});
-		// }
+		if (!profilePic) {
+			return res.status(400).json({
+				success: false,
+				message: "Profile pic is required",
+			});
+		}
 
-		// const folder = process.env.FOLDER_NAME;
-		// const uploadResponse = await uploadFileOnCloudinary(profilePic, folder);
-		// const updatedUser = await User.findByIdAndUpdate(
-		// 	userId,
-		// 	{ profilePic: uploadResponse.secure_url },
-		// 	{ new: true }
-		// );
+		const uploadResponse = await uploadFileOnCloudinary(profilePic);
+		const updatedUser = await User.findByIdAndUpdate(
+			userId,
+			{ profilePic: uploadResponse.secure_url },
+			{ new: true }
+		);
 
 		res.status(200).json({
 			success: true,
 			message: "Profile picture updated",
+			updatedUser,
 		});
 	} catch (error) {
 		console.log("Error in update profile controller ", error.message);
