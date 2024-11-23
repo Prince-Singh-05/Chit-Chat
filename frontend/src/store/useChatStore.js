@@ -40,9 +40,10 @@ export const useChatStore = create((set, get) => ({
 				`/messages/send/${selectedUser._id}`,
 				messageData
 			);
-			set({ messages: [...messages, res.data] });
+
+			set({ messages: [...messages, res.data.newMessage] });
 		} catch (error) {
-			toast.error(error.response.data.message);
+			toast.error(error.message);
 		}
 	},
 
