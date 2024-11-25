@@ -51,7 +51,7 @@ export const signup = async (req, res) => {
 			succeess: true,
 			message: "User signup successfull",
 			user: {
-				id: newUser._id,
+				_id: newUser._id,
 				fullName: newUser.fullName,
 				email: newUser.email,
 				profilePic: newUser.profilePic,
@@ -100,7 +100,7 @@ export const login = async (req, res) => {
 			succeess: true,
 			message: "User login successfull",
 			user: {
-				id: user._id,
+				_id: user._id,
 				fullName: user.fullName,
 				email: user.email,
 				profilePic: user.profilePic,
@@ -134,8 +134,6 @@ export const logout = (req, res) => {
 // check if there is some issue
 export const updateProfile = async (req, res) => {
 	try {
-		console.log("Request's body - ", req.body);
-
 		const { profilePic } = req.body;
 		const userId = req.user._id;
 
@@ -151,7 +149,7 @@ export const updateProfile = async (req, res) => {
 			userId,
 			{ profilePic: uploadResponse.secure_url },
 			{ new: true }
-		);
+		).select("-password");
 
 		res.status(200).json({
 			success: true,
