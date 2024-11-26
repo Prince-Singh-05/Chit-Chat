@@ -35,8 +35,6 @@ const ChatContainer = () => {
 		if (messageEndRef.current && messages) {
 			messageEndRef.current.scrollIntoView({ behavior: "smooth" });
 		}
-
-		console.log({ messages });
 	}, [messages]);
 
 	if (isMessagesLoading) {
